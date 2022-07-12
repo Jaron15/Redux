@@ -9,6 +9,10 @@ const Counter = () => {
   const incrementHandler = () => {
     dispatch({type: 'increment',})
   }
+// the 'amount' arg is the "payload" it is passed to and used by the 'increase' method like a prop
+  const increaseHandler = () => {
+    dispatch({type: 'increase', amount: 10})
+  }
   const decrementHandler = () => {
     dispatch({type: 'decrement',})
   }
@@ -21,6 +25,7 @@ const Counter = () => {
       <div className={classes.value}>{counter}</div>
       <div>
         <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseHandler}>Increase by 10</button>
         <button onClick={decrementHandler}>decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
