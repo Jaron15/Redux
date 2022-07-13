@@ -1,5 +1,6 @@
 import classes from './Counter.module.css';
 import {useSelector, useDispatch, connect} from 'react-redux';
+import {counterActions} from '../store/index';
 // import {Component} from 'react'
 
 const Counter = () => {
@@ -9,18 +10,17 @@ const Counter = () => {
   const show = useSelector(state => state.showCounter)
 
   const incrementHandler = () => {
-    dispatch({type: 'increment',})
+    dispatch(counterActions.increment());
   }
-// the 'amount' arg is the "payload" it is passed to and used by the 'increase' method like a prop
   const increaseHandler = () => {
-    dispatch({type: 'increase', amount: 10})
+    dispatch(counterActions.increase(10)); // {type: SOME_UNIQUE_IDENTIFIER, payload: 10} <-object created by redux toolkit
   }
   const decrementHandler = () => {
-    dispatch({type: 'decrement',})
+    dispatch(counterActions.decrement())
   }
 
   const toggleCounterHandler = () => {
-    dispatch({type: 'toggle'})
+    dispatch(counterActions.toggleCounter())
   };
 
   return (
