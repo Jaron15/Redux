@@ -1,41 +1,31 @@
-import {createStore} from 'redux';
+//the toolkit makes all changes immutable no matter what | you can edit the state directly when you are using toolkit because it has a package that detects these changes and creates the new state object behind the scenes making it impossible to actually directly change the state.
+import {createSlice, configureStore} from '@reduxjs/toolkit'
 
+//DO NOT update the state directly, must be replaced with a new state object 
 const initialState = {counter: 0, showCounter: true}
 
-//default state and action is passes in
-const counterReducer = (state = initialState, action) => {
-// actions have to return a state instance that matches the default, in this case the showCounter value isnt changed, but still needs to be set 
-    if (action.type === 'increment') {
-      return { 
-        counter: state.counter + 1,
-        showCounter: state.showCounter
-    }
-    }
-//action is not defined in the default state but it is created when it is passed in with the increase action type 
-    if (action.type === 'increase') {
-        return { 
-            counter: state.counter + action.amount,
-            showCounter: state.showCounter
+//with create slice you only have to include what you want to edit and redux toolkit will automatically include the current states properties if not changed 
+const counterSlice = createSlice({
+    name: 'counter',
+    initialState: initialState,
+    reducers: {
+        increment(state) {
+            state.counter++;
+        },
+        decrement(state) {
+            state.counter--;
+        },
+        increase(state, action) {
+            state.counter = state.counter + action.amount;
+        },
+        toggleCounter(state) {
+            state.showCounter = !state.showCounter;
         }
     }
-    if (action.type === 'decrement') {
-        return {
-            counter: state.counter - 1,
-            showCounter: state.showCounter
-        }
-    }
-//reference the existing state with state.counter or state.showCounter
-    if (action.type === 'toggle') {
-    //here were setting showCounter to the opposite of its current state
-        return {
-            showCounter: !state.showCounter,
-            counter: state.counter
-        }
-    }
+});
 
-    return state;
-}
-
-const store = createStore(counterReducer);
+const store = configureStore({
+    reducer: counterSlice.reducer
+});
 
 export default store; 
