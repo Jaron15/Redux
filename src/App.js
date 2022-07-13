@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 
 
 function App() {
+  // pulls the isAuthenticated state out of the state object 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   return (
     <Fragment>
